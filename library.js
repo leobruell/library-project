@@ -35,11 +35,13 @@ console.log(myLibary)
 
 function addForm(event){
     let theForm = document.createElement('div')
+    let openForm = document.querySelector('.open-form')
     theForm.classList.add('the-form')
 
     theForm.innerHTML = 
     `
     <div class="the-form">
+    <h3>Add Book:</h3>
     <div class="title">
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" required>
@@ -57,7 +59,7 @@ function addForm(event){
         <div>
             <div class="radio-button">
                 <label for="radio-yes">Yes</label>
-                <input type="radio" id="read-yes" name="read-it" value="yes">
+                <input type="radio" id="read-yes" name="read-it" value="yes" checked="checked">
             </div>
             <div class="radio-button">
                 <label for="radio-no">No</label>
@@ -66,7 +68,7 @@ function addForm(event){
         </div>
     </div>
     <div class="submit-div">
-        <button class="submit-form" type="button">Add Book</button>
+        <button class="submit-form" type="button">Submit</button>
     </div>
     </div>
     `
@@ -75,7 +77,51 @@ function addForm(event){
 
     openForm.remove()
     openForm.removeEventListener('click', addForm)
+
+    let submitButton = document.querySelector('.submit-form')
+    submitButton.addEventListener('click', addBook)
+
+}
+
+function addBook(event){
+    let titleInput = document.querySelector('.title input')
+    let titleValue = titleInput.value
+
+    let authorInput = document.querySelector('.author input')
+    let authorValue = authorInput.value
+
+    let pagesInput = document.querySelector('.page-count input')
+    let pagesValue = pagesInput.value
+
+    let radioValue = document.querySelector('input[name="read-it"]:checked').value
+
+    let newBook
+    if (radioValue == 'yes'){
+        newBook = new Book(titleValue, authorValue, pagesValue, true)
+    }
+    else {
+        newBook = new Book(titleValue, authorValue, pagesValue, false)
+    }
+    myLibary.push(newBook)
+
+    let bookCards = document.querySelectorAll('.book-div')
+    bookCards.forEach(card => card.remove())
+
+    let theForm = document.querySelector('.the-form')
+    theForm.remove()
+
+    let openForm = document.createElement('button')
+    openForm.classList.add('open-form')
+    openForm.setAttribute('type','button')
+    openForm.textContent = 'Add Book'
+
+    document.querySelector('.form-div').appendChild(openForm)
+    openForm.addEventListener('click', addForm)
+
+    showBooks()
 }
 
 let openForm = document.querySelector('.open-form')
 openForm.addEventListener('click', addForm)
+
+
