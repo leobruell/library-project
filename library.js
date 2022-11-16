@@ -39,15 +39,21 @@ function showBooks(){
         <div class="card-buttons">
         <div>
             <label for="read-box"> Read:</label><br>
-            <input type="checkbox" id="read-box" name="read" value="read">
+            <input class="read-checkbox" type="checkbox" id="read-box" name="read" value="read">
         </div>
         <button class="remove-card" type="button">Remove Book</button>
         </div>
         `
         bookList.appendChild(bookDiv)
-        let removeButton = document.querySelector(".remove-card")
-        removeButton.addEventListener('click', removeBook)
+        let readCheckbox = bookDiv.querySelector('.read-checkbox')
+        if (myLibrary[book].read == true){
+            readCheckbox.setAttribute('checked','')
+        }
+        readCheckbox.addEventListener('change', changeReadStatus)
+        
     }
+    
+
 
     let removeCard = document.querySelectorAll('.remove-card')
     removeCard.forEach(button => {
@@ -152,8 +158,21 @@ function removeBook(event){
 
     let bookCards = document.querySelectorAll('.book-div')
     bookCards.forEach(card => card.remove())
-    console.log(myLibrary)
     showBooks()
+}
+
+function changeReadStatus(event){
+    let theCheckbox = event.target
+    let bookCard = theCheckbox.parentElement.parentElement.parentElement
+    let indexVal = bookCard.getAttribute('data-list-number')
+    if (theCheckbox.checked){
+        myLibrary[indexVal].read = true
+    } 
+    else{
+        myLibrary[indexVal].read = false
+    }
+    console.log(myLibrary[indexVal])
+
 }
 
 let openForm = document.querySelector('.open-form')
