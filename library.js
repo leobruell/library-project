@@ -24,11 +24,28 @@ function showBooks(){
     for (book in myLibary){
         let bookDiv = document.createElement('div')
         bookDiv.classList.add('book-div')
-        let bookIcon = document.createElement('p')
-        bookIcon.innerHTML = 'Title: ' + myLibary[book].title + '<br />' + 'Author: ' + myLibary[book].author + '<br />' + 'Pages: ' + myLibary[book].pages
-        bookDiv.appendChild(bookIcon)
+        bookDiv.innerHTML = 
+        `
+        <div class="main-card-content">
+        <p>
+        Title: ${myLibary[book].title} <br /> 
+        Author: ${myLibary[book].author} <br />
+        Pages: ${myLibary[book].pages} <br />
+        </p>
+        </div>
+        <div class="card-buttons">
+        <button class="remove-card" type="button">Remove Book</button>
+        </div>
+        `
         bookList.appendChild(bookDiv)
+        let removeButton = document.querySelector(".remove-card")
+        removeButton.addEventListener('click', removeBook)
     }
+
+    let removeCard = document.querySelectorAll('.remove-card')
+    removeCard.forEach(button => {
+        button.addEventListener('click', removeBook)
+    })
 }
 showBooks()
 console.log(myLibary)
@@ -78,9 +95,8 @@ function addForm(event){
     openForm.remove()
     openForm.removeEventListener('click', addForm)
 
-    let submitButton = document.querySelector('.submit-form')
-    submitButton.addEventListener('click', addBook)
-
+    let submitDiv = document.querySelector('.submit-form')
+    submitDiv.addEventListener('click', addBook)
 }
 
 function addBook(event){
@@ -119,6 +135,12 @@ function addBook(event){
     openForm.addEventListener('click', addForm)
 
     showBooks()
+}
+
+function removeBook(event){
+    let removeButton = event.target
+    let divToRemove = removeButton.parentElement.parentElement
+    divToRemove.remove()
 }
 
 let openForm = document.querySelector('.open-form')
