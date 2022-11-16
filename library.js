@@ -1,4 +1,6 @@
-let myLibary = [new Book('My Life', 'Leo Bruell', '1000', true), new Book('My Second Life', 'Leo Bruell', '10', false)]
+let myLibrary = [
+    // new Book('My Life', 'Leo Bruell', '1000', true), new Book('My Second Life', 'Leo Bruell', '10', false)
+]
 
 function Book(title, author, pages, read){
     this.title = title
@@ -21,19 +23,24 @@ Book.prototype.info = function() {
 
 function showBooks(){
     let bookList = document.querySelector('.book-list')
-    for (book in myLibary){
+    for (book in myLibrary){
         let bookDiv = document.createElement('div')
         bookDiv.classList.add('book-div')
+        bookDiv.setAttribute('data-list-number',`${book}`)
         bookDiv.innerHTML = 
         `
         <div class="main-card-content">
         <p>
-        Title: ${myLibary[book].title} <br /> 
-        Author: ${myLibary[book].author} <br />
-        Pages: ${myLibary[book].pages} <br />
+        Title: ${myLibrary[book].title} <br /> 
+        Author: ${myLibrary[book].author} <br />
+        Pages: ${myLibrary[book].pages} <br />
         </p>
         </div>
         <div class="card-buttons">
+        <div>
+            <label for="read-box"> Read:</label><br>
+            <input type="checkbox" id="read-box" name="read" value="read">
+        </div>
         <button class="remove-card" type="button">Remove Book</button>
         </div>
         `
@@ -47,8 +54,7 @@ function showBooks(){
         button.addEventListener('click', removeBook)
     })
 }
-showBooks()
-console.log(myLibary)
+// showBooks()
 
 function addForm(event){
     let theForm = document.createElement('div')
@@ -118,7 +124,7 @@ function addBook(event){
     else {
         newBook = new Book(titleValue, authorValue, pagesValue, false)
     }
-    myLibary.push(newBook)
+    myLibrary.push(newBook)
 
     let bookCards = document.querySelectorAll('.book-div')
     bookCards.forEach(card => card.remove())
@@ -140,7 +146,14 @@ function addBook(event){
 function removeBook(event){
     let removeButton = event.target
     let divToRemove = removeButton.parentElement.parentElement
+    let indexVal = divToRemove.getAttribute('data-list-number')
+    myLibrary = myLibrary.filter(item => myLibrary.indexOf(item) != indexVal)
     divToRemove.remove()
+
+    let bookCards = document.querySelectorAll('.book-div')
+    bookCards.forEach(card => card.remove())
+    console.log(myLibrary)
+    showBooks()
 }
 
 let openForm = document.querySelector('.open-form')
