@@ -24,12 +24,14 @@ input::-webkit-inner-spin-button {
 .inner-header{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10%;
 }
 
 .book-icon{
     height: 2rem;
     width: auto;
+    padding-bottom: 3%;
 }
 
 .book-area{
