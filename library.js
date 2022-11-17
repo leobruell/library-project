@@ -1,5 +1,6 @@
 let myLibrary = [
-    // new Book('My Life', 'Leo Bruell', '1000', true), new Book('My Second Life', 'Leo Bruell', '10', false)
+    new Book('The Catcher in the Rye', ' J. D. Salinger', '234', true),
+    new Book('For Whom the Bell Tolls', 'Ernest Hemingway', '300', true)
 ]
 
 function Book(title, author, pages, read){
@@ -31,16 +32,20 @@ function showBooks(){
         `
         <div class="main-card-content">
         <p>
-        Title: ${myLibrary[book].title} <br /> 
-        Author: ${myLibrary[book].author} <br />
-        Pages: ${myLibrary[book].pages} <br />
+        <span class='book-title'>${myLibrary[book].title} </span><br /> 
+        By ${myLibrary[book].author} <br />
+        ${myLibrary[book].pages} pages <br />
         </p>
+        <div class="reading-part">
+            <div>
+            <label for="read-box"> Read:</label><br>
+            </div>
+            <div>
+            <input class="read-checkbox" type="checkbox" id="read-box" name="read" value="read">
+            </div>
+        </div>
         </div>
         <div class="card-buttons">
-        <div>
-            <label for="read-box"> Read:</label><br>
-            <input class="read-checkbox" type="checkbox" id="read-box" name="read" value="read">
-        </div>
         <button class="remove-card" type="button">Remove Book</button>
         </div>
         `
@@ -69,8 +74,7 @@ function addForm(event){
 
     theForm.innerHTML = 
     `
-    <div class="the-form">
-    <h3>Add Book:</h3>
+    <h3>Add Book</h3>
     <div class="title">
         <label for="title">Title:</label>
         <input type="text" name="title" id="title" required>
@@ -80,25 +84,24 @@ function addForm(event){
         <input type="text" name="author" id="author" required>
     </div>
     <div class="page-count">
-        <label for="pages">Number of Pages:</label>
+        <label for="pages">Pages:</label>
         <input type="number" name="page-count" id="pages" required>
     </div>
     <div class="read">
         <label for="read">Have you read it?</label>
-        <div>
-            <div class="radio-button">
-                <label for="radio-yes">Yes</label>
-                <input type="radio" id="read-yes" name="read-it" value="yes" checked="checked">
-            </div>
-            <div class="radio-button">
-                <label for="radio-no">No</label>
-                <input type="radio" id="read-no" name="read-it" value="no">
-            </div>
+        
+        <div class="radio-button">
+            <label for="radio-yes">Yes</label>
+            <input type="radio" id="read-yes" name="read-it" value="yes" checked="checked">
         </div>
+        <div class="radio-button">
+            <label for="radio-no">No</label>
+            <input type="radio" id="read-no" name="read-it" value="no">
+        </div>
+        
     </div>
     <div class="submit-div">
         <button class="submit-form" type="button">Submit</button>
-    </div>
     </div>
     `
     let formDiv = document.querySelector('.form-div')
@@ -178,4 +181,6 @@ function changeReadStatus(event){
 let openForm = document.querySelector('.open-form')
 openForm.addEventListener('click', addForm)
 
+
+showBooks()
 
