@@ -1,26 +1,27 @@
+class Book {
+    constructor(title, author, pages, read){
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+    }
+    info(){
+        if (this.read == true){
+            return `${this.title} by ${this.author}, ${this.pages} pages, read`
+        }
+        else if (this.read == false){
+            return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
+        }
+        else {
+            return `${this.title} by ${this.author}, ${this.pages} pages, read status unknown`
+        }
+    }
+}
+
 let myLibrary = [
     new Book('The Catcher in the Rye', ' J. D. Salinger', '234', true),
     new Book('For Whom the Bell Tolls', 'Ernest Hemingway', '300', true)
 ]
-
-function Book(title, author, pages, read){
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-}
-
-Book.prototype.info = function() {
-    if (this.read == true){
-        return `${this.title} by ${this.author}, ${this.pages} pages, read`
-    }
-    else if (this.read == false){
-        return `${this.title} by ${this.author}, ${this.pages} pages, not read yet`
-    }
-    else {
-        return `${this.title} by ${this.author}, ${this.pages} pages, read status unknown`
-    }
-}
 
 function showBooks(){
     let bookList = document.querySelector('.book-list')
